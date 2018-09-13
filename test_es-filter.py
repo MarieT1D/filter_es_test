@@ -16,7 +16,7 @@ plt.plot(x,werte, linestyle='none', marker='.', label='origin')
 
 
 #forecasting
-p=0.6#Parameter für Fehler
+p=0.6 #Parameter für Stärke des Filters
 fc=[0, werte[0]]
 for i in range(len(werte)-1):
     i=i+1
