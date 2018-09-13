@@ -26,6 +26,6 @@ fc.remove(0)
 print (fc)
 print(len(fc), len(werte))
 
-plt.plot(x,fc, linestyle='none', marker='.', label='filtered')
+plt.plot(x,fc, linestyle='none', marker='.', label='filtered, p=' + str(p))
 plt.legend()
 
