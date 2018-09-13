@@ -16,12 +16,12 @@ plt.plot(x,werte, linestyle='none', marker='.', label='origin')
 
 #forecasting
 p=0.6 #Parameter für Stärke des Filters
-fc=[0, werte[0]]
+fc=[werte[0]]
 for i in range(len(werte)-1):
     i=i+1
     a=int(fc[i]+p*(werte[i]-fc[i]))
     fc.append(a)
-fc.remove(0)    
+  
 
 
 plt.plot(x,fc, linestyle='none', marker='.', label='filtered, p=' + str(p))
