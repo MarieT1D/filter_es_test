@@ -18,7 +18,6 @@ plt.plot(x,werte, linestyle='none', marker='.', label='origin')
 p=0.6 #Parameter für Stärke des Filters
 fc=[werte[0]]
 for i in range(len(werte)-1):
-    i=i+1
     a=int(fc[i]+p*(werte[i]-fc[i]))
     fc.append(a)
   
