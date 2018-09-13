@@ -12,7 +12,7 @@ x=np.zeros_like(werte)
 for i in range(len(x)):
     x[i]=i*5
 print(werte,x)
-plt.plot(x,werte, linestyle='none', marker='.')
+plt.plot(x,werte, linestyle='none', marker='.', label='origin')
 
 
 #forecasting
@@ -26,6 +26,6 @@ fc.remove(0)
 print (fc)
 print(len(fc), len(werte))
 
-plt.plot(x,fc, linestyle='none', marker='.')
-
+plt.plot(x,fc, linestyle='none', marker='.', label='filtered')
+plt.legend()
 
