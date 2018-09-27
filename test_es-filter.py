@@ -33,4 +33,5 @@ plt.plot(x,werte, linestyle='none', marker='.', label='origin')
 plt.plot(x,fc, linestyle='none', marker='.', label='filtered, p=' + str(p))
 plt.plot(x,av, linestyle='none', marker='.', label='15 min delta')
 plt.legend()
+plt.show()
 
