@@ -111,13 +111,13 @@ for i in range(len(b1[z])-1):
     a=int(fc[i]+p*(b1[z][i]-fc[i]))
     fc.append(a)
     
-#Filter Daten2 Bernhard
+"""#Filter Daten2 ???Bernhard???? aber irgendwie habe ich da einen Fehler drinnen
 pb=0.2 #Parameter für Stärke des Filters
 ffc=[b1[z][0]]
 
 for i in range(len(b1[z])-1):
     a=(pb*b1[9][i]+(1-pb)*(ffc[i]))
-    ffc.append(a)
+    ffc.append(a)"""
     
 
 
@@ -137,7 +137,7 @@ marker=0.5  #Punktgroesse
 plt.figure()
 plt.plot(taga2[z],b2[z], marker='.', linestyle='none', label='G5', markersize=marker)
 plt.plot(taga1[z],b1[z], marker='.', linestyle='none', label='ES', markersize=marker)
-plt.plot(taga1[z],ffc, linestyle='none', marker='.', label='filtered ES, pb=' + str(pb), markersize=marker)
+"""plt.plot(taga1[z],ffc, linestyle='none', marker='.', label='filtered ES, pb=' + str(pb), markersize=marker)"""
 plt.plot(taga1[z],fc, linestyle='none', marker='.', label='filtered ES, p=' + str(p), markersize=marker)
 plt.plot((taga1[z]),av, linestyle='none', marker='.', label='15 min delta ES', markersize=marker)
 plt.title("Tag"+str(z))
