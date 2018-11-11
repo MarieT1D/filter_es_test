@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 dat1=list(np.loadtxt('es-readings-20180226-20180315-GOOD - Kopie.txt', dtype='unicode_'))
 dat2=list(np.loadtxt('entriesG5-20180226bis20180313-BAD - Kopie.txt', dtype='unicode_'))
 
-
-#doppelte xDrip Eintr�ge l�schen  ( nur ES)
+#Tag
+z=8
+#doppelte xDrip Einträge löschen  ( nur ES)
 #Daten1
 a1=len(dat1)
 la1=0
@@ -15,7 +16,7 @@ for i in range(a1):
 for i in range(la1):
     dat1.remove(0)
     
-#leere Eintr�ge oder ESEL l�schen  ( nur G5, xDrip)
+#leere Einträge oder ESEL löschen  ( nur G5, xDrip)
 #Daten1
 a2=len(dat2)
 la2=0
@@ -77,7 +78,7 @@ a2=dict(zip(zeit2, bz2))
 
 #Daten auftrennen nach Datum
 #Tage erstellen
-#Daten1
+#Daten1 ES
 taga1=[]
 for j in range(100):
     taga1.append([])
@@ -89,7 +90,7 @@ for i in range(len(taga1)):
     b1.append([a1[taga1[i][j]] for j in range(len(taga1[i]))])
     
 
-#Daten2
+#Daten2 G5
 taga2=[]
 for j in range(100):
     taga2.append([])
@@ -98,33 +99,52 @@ for j in range(100):
             taga2[j].append(zeit2[i]) 
 b2=[]
 for i in range(len(taga2)):
-    b2.append([a2[taga2[i][j]] for j in range(len(taga2[i]))])
-    
-    
-#Plot
-for i in range(13):
-    plt.figure()
-    plt.plot(taga2[i],b2[i], marker='.', markersize=0.5, linestyle='none', label='G5')
-    plt.plot(taga1[i],b1[i], marker='.', markersize=0.5, linestyle='none', label='ES')
-    plt.title("Tag"+str(i))
-    plt.legend()
-    plt.savefig('Vergleich ES G5 - Tag ' +str(i)+ ".pdf") 
+    b2.append([int(a2[taga2[i][j]]) for j in range(len(taga2[i]))])
     
 
+    
+#Filter Daten1 ES 
+p=0.2 #Parameter für Stärke des Filters
+fc=[b1[z][0]]
+
+for i in range(len(b1[z])-1):
+    a=int(fc[i]+p*(b1[z][i]-fc[i]))
+    fc.append(a)
+    
+#Filter Daten2 Bernhard
+pb=0.2 #Parameter für Stärke des Filters
+ffc=[b1[z][0]]
+
+for i in range(len(b1[z])-1):
+    a=(pb*b1[9][i]+(1-pb)*(ffc[i]))
+    ffc.append(a)
+    
+
+
+#15 min average
+av=([b1[z][0],b1[z][1]])
+for i in range(len(b1[z])-2):
+    a=(b1[z][i]+b1[z][i+1]+b1[z][i+2])/3
+    av.append(a)
 
 
 
 
-"""
-TO DO:
-Gnuplot einrichten http://gnuplot-py.sourceforge.net/
-richtige Beschriftung mit richtigem Datum
-Monate
-"""
+#Plot Tag 9
+print(b1[z])
+print(fc)
+marker=0.5  #Punktgroesse
+plt.figure()
+plt.plot(taga2[z],b2[z], marker='.', linestyle='none', label='G5', markersize=marker)
+plt.plot(taga1[z],b1[z], marker='.', linestyle='none', label='ES', markersize=marker)
+plt.plot(taga1[z],ffc, linestyle='none', marker='.', label='filtered ES, pb=' + str(pb), markersize=marker)
+plt.plot(taga1[z],fc, linestyle='none', marker='.', label='filtered ES, p=' + str(p), markersize=marker)
+plt.plot((taga1[z]),av, linestyle='none', marker='.', label='15 min delta ES', markersize=marker)
+plt.title("Tag"+str(z))
+plt.legend()
+plt.show()
 
-"""
-Wiedernutzung beachten:
-Monate
-Anzahl Tage zum Schluss beim Plotten
-"""
+plt.savefig('ES-G5  '+str(p)+'tag' + str(z)+'.pdf') 
+
+
 
