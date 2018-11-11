@@ -1,3 +1,7 @@
+"""zu veränderndene Daten: 
+Tag z=?, Filterstärke p=?, Plotmöglichkeiten: '#' hinzufügen oder entfernen vor die Zeile mit plt.plot(...), um Daten (nicht) zu plotten"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 dat1=list(np.loadtxt('es-readings-20180226-20180315-GOOD - Kopie.txt', dtype='unicode_'))
