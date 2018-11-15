@@ -114,14 +114,22 @@ fc=[b1[z][0]]
 for i in range(len(b1[z])-1):
     a=int(fc[i]+p*(b1[z][i]-fc[i]))
     fc.append(a)
-    
-"""#Filter Daten2 ???Bernhard???? aber irgendwie habe ich da einen Fehler drinnen
-pb=0.2 #Parameter für Stärke des Filters
-ffc=[b1[z][0]]
+
+#Filter Daten2 Bernhard
+#exp + average (correction)
+ev=[b1[z][0]]
+ea=[b1[z][0]]
+pb=0.2
+r=0.4
 
 for i in range(len(b1[z])-1):
-    a=(pb*b1[9][i]+(1-pb)*(ffc[i]))
-    ffc.append(a)"""
+
+    a=(ev[i]+pb*(b1[z][i+1]-ev[i]))
+    ev.append(int(a))
+    a=a+r*((b1[z][i]-ev[i])+(b1[z][i+1]-a))/2 #gut1 mit p=0.7, r=0.6, stark gedämpft mit p=0,2, r = 0,4
+    #a=a+(1-p)*(werte[i+1]-a) #gut2
+    ea.append(int(a))
+
     
 
 
@@ -141,7 +149,7 @@ marker=0.5  #Punktgroesse
 plt.figure()
 plt.plot(taga2[z],b2[z], marker='.', linestyle='none', label='G5', markersize=marker)
 plt.plot(taga1[z],b1[z], marker='.', linestyle='none', label='ES', markersize=marker)
-"""plt.plot(taga1[z],ffc, linestyle='none', marker='.', label='filtered ES, pb=' + str(pb), markersize=marker)"""
+plt.plot(taga1[z],ea, linestyle='none', marker='.', label='filtered ES Bernhard, pb=' + str(pb), markersize=marker)
 plt.plot(taga1[z],fc, linestyle='none', marker='.', label='filtered ES, p=' + str(p), markersize=marker)
 plt.plot((taga1[z]),av, linestyle='none', marker='.', label='15 min delta ES', markersize=marker)
 plt.title("Tag"+str(z))
